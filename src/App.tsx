@@ -22,7 +22,7 @@ function App() {
           </a>
           <Link to="/Home" className="m-5 py-5">Home</Link>
           <Link to="/QuickStart" className="m-5 py-5">Quick Start React</Link>
-          
+          <Link to="/Components" className="m-5 py-5">Components</Link>          
         </div>        
       </div>
     </>

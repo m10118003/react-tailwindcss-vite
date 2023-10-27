@@ -5,13 +5,14 @@ function Home() {
 
   const clickBtn = () => {
     // setCount(count+1);
-    setCount('counted');
-    console.log('counted', countString)
+    setCount('Yes! Yes! Yes!');
+    console.log('Yes! Yes! Yes!', countString)
   }
 
-  const [count, setCount2]= useState(0);
+  const [count, setCount2]= useState(String);
   const clickBtn2 = () => { 
-    setCount2(count + 1);
+    const count = `Go ! Go ! Go !`;
+    setCount2(count);
       console.log('count', count)
   }
   
@@ -23,10 +24,10 @@ function Home() {
           <h1 className="font-bold underline mt-5 hover:bg-sky-200 hover:text-indigo-600 hover:rounded p-5 cursor-crosshair">Vite + React + TailwindCSS</h1>
           <div className="cards row-auto">
             <button className="card-btn border-dashed border-2 border-black-600 hover:bg-[#feb28e] hover:text-indigo-600" onClick={ clickBtn }>
-              count is: { countString }
+              Start? { countString }
             </button>
             <button className="card-btn col-span-6 border-dashed border-2 border-black-600 hover:bg-sky-200 hover:text-indigo-600" onClick={ clickBtn2 }>
-              count is: { count }
+              Keep going? { count }
             </button>
             <p>
               Edit <code>src/App.tsx</code> and save to test HMR
