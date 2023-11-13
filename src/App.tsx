@@ -2,28 +2,44 @@ import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
-import Home from './routes/Home';
+
+
+import Home from "./routes/Home";
 
 // import "./App.css";
 import "./styles/style.scss";
 
 function App() {
-
   // const cardBtn:string = "card-btn border-dashed border-2 border-black-600 hover:bg-[#feb28e] hover:text-indigo-600";
   return (
     <>
       <div>
-        <div className="inline-flex justify-center align-center">
-          <a href="https://vitejs.dev" target="_blank">
-            <img src={ viteLogo } className="logo" alt="Vite logo" />
+        <div className="align-center inline-flex justify-center">
+          <a href="https://vitejs.dev" target="_blank" rel="noopener">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
           </a>
-          <a href="https://react.dev" target="_blank">
-            <img src={ reactLogo } className="logo react" alt="React logo" />
+          <a href="https://react.dev" target="_blank" rel="noopener">
+            <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
-          <Link to="/Home" className="m-5 py-5">Home</Link>
-          <Link to="/QuickStart" className="m-5 py-5">Quick Start React</Link>
-          <Link to="/Components" className="m-5 py-5">Components</Link>          
-        </div>        
+          <Link to="/Home" className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair">
+            Home
+          </Link>
+          <Link to="/QuickStart" className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair">
+            Quick Start React
+          </Link>
+          <Link
+            to="/Components"
+            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+          >
+            Components
+          </Link>
+          <Link
+            to="/MarkupWithJSX"
+            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+          >
+            Markup with JSX
+          </Link>
+        </div>
       </div>
     </>
   );
@@ -31,6 +47,6 @@ function App() {
 
 // const App2 = () => {
 
-// } 
+// }
 
 export default App;
