@@ -11,6 +11,7 @@ import Home from './routes/Home';
 import QuickStart from './routes/QuickStart';
 import Components from './routes/Components';
 import MarkupWithJSX from './routes/MarkupWithJSX';
+import DisplayingData from './routes/DisplayingData';
 import './index.css'
 
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter( [
   {
     path: "/MarkupWithJSX",
     element: <MarkupWithJSX />,
+  },
+  {
+    path: "/DisplayingData",
+    element: <DisplayingData />,
   }
 ]);
 

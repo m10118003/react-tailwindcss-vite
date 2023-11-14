@@ -39,6 +39,12 @@ function App() {
           >
             Markup with JSX
           </Link>
+          <Link
+            to="/DisplayingData"
+            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+          >
+            Displaying Data
+          </Link>
         </div>
       </div>
     </>
