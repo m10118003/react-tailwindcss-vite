@@ -23,7 +23,9 @@ export function QuickStart() {
             3.14159265358979…
           </p>
           <p className="text-l list-disc font-black lowercase leading-6 text-gray-400 overline	decoration-dashed	decoration-4">
-            <li>How to render conditions and lists</li>
+            <ul>
+              <li>How to render conditions and lists</li>
+            </ul>
           </p>
           <p className="text-l text-center font-black capitalize text-indigo-600">
             How to respond to events and update the screen

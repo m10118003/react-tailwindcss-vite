@@ -12,6 +12,7 @@ import QuickStart from './routes/QuickStart';
 import Components from './routes/Components';
 import MarkupWithJSX from './routes/MarkupWithJSX';
 import DisplayingData from './routes/DisplayingData';
+import RenderingLists from './routes/RenderingLists';
 import './index.css'
 
 
@@ -39,7 +40,11 @@ const router = createBrowserRouter( [
   {
     path: "/DisplayingData",
     element: <DisplayingData />,
-  }
+  },
+  {
+    path: "/RenderingLists",
+    element: <RenderingLists />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -45,6 +45,12 @@ function App() {
           >
             Displaying Data
           </Link>
+          <Link
+            to="/RenderingLists"
+            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+          >
+            Rendering Lists
+          </Link>
         </div>
       </div>
     </>
