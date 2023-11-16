@@ -2,8 +2,6 @@ import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
-
-
 import Home from "./routes/Home";
 
 // import "./App.css";
@@ -21,33 +19,39 @@ function App() {
           <a href="https://react.dev" target="_blank" rel="noopener">
             <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
-          <Link to="/Home" className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair">
+          <Link
+            to="/Home"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
+          >
             Home
           </Link>
-          <Link to="/QuickStart" className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair">
+          <Link
+            to="/QuickStart"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
+          >
             Quick Start React
           </Link>
           <Link
             to="/Components"
-            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
           >
             Components
           </Link>
           <Link
             to="/MarkupWithJSX"
-            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
           >
             Markup with JSX
           </Link>
           <Link
             to="/DisplayingData"
-            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
           >
             Displaying Data
           </Link>
           <Link
             to="/RenderingLists"
-            className="link-effect m-5 py-5 hover:bg-sky-200 hover:text-indigo-800 rounded hover:rounded p-1 cursor-crosshair"
+            className="link-effect m-5 cursor-crosshair rounded p-1 py-5 font-black hover:rounded hover:bg-sky-200 hover:text-indigo-800"
           >
             Rendering Lists
           </Link>

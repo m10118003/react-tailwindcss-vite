@@ -96,7 +96,7 @@ export default function DisplayingData() {
       <div className="conditional-rendering mt-4 font-black	">
         {isBtnChange && (
           <div className="inline-flex">
-            Button color has been changed to{" "}
+            Button color has been changed to
             <p className="px-2 text-green-600 underline decoration-dashed decoration-2 underline-offset-8 font-black">
               green
             </p>

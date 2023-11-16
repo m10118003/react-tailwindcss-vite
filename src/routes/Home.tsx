@@ -1,19 +1,19 @@
 import App from '../App'
 import { useState } from "react";
 function Home() {
-  const [countString, setCount] = useState('');
+  const [countString, setCount] = useState(''); // 設定初始值為空字串
 
   const clickBtn = () => {
     // setCount(count+1);
-    setCount('Yes! Yes! Yes!');
-    console.log('Yes! Yes! Yes!', countString)
+    setCount('Yes! Yes! Yes!'); // 更新 countString 的值/狀態
+    console.log('Yes! Yes! Yes!', countString) // 這裡還是舊值
   }
 
-  const [count, setCount2]= useState(String);
+  const [count, setCount2]= useState(String); // 這初始值為 String 實際上是 JS 的 String 函數對象
   const clickBtn2 = () => { 
     const count = `Go ! Go ! Go !`;
-    setCount2(count);
-      console.log('count', count)
+    setCount2(count); // 更新 count 的值/狀態
+      console.log('count', count) // 這邊是 local variable
   }
   
   // const cardBtn:string = "card-btn border-dashed border-2 border-black-600 hover:bg-[#feb28e] hover:text-indigo-600";
