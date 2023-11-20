@@ -13,6 +13,7 @@ import Components from './routes/Components';
 import MarkupWithJSX from './routes/MarkupWithJSX';
 import DisplayingData from './routes/DisplayingData';
 import RenderingLists from './routes/RenderingLists';
+import TicTacToe from './routes/TicTacToe';
 import './index.css'
 
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter( [
   {
     path: "/RenderingLists",
     element: <RenderingLists />,
+  },
+  {
+    path: "/TicTacToe",
+    element: <TicTacToe />,
   },
 ]);
 

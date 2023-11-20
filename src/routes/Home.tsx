@@ -1,6 +1,7 @@
 // Home.tsx
 import App from '../App'
 import { useState } from "react";
+
 function Home() {
   const [countString, setCount] = useState(''); // 設定初始值為空字串
 

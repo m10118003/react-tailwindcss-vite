@@ -1,5 +1,6 @@
 // QuickStart.tsx
 import App from "../App";
+
 export function QuickStart() {
   return (
     <div className="QuickStart">
