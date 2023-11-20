@@ -1,3 +1,4 @@
+// Home.tsx
 import App from '../App'
 import { useState } from "react";
 function Home() {
