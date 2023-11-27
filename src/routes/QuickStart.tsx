@@ -41,3 +41,16 @@ export function QuickStart() {
 }
 
 export default QuickStart;
+
+// 使用匿名函數直接匯出
+// 可以直接匯出, 但偵錯的時候可能會發生組件顯示為 Anonymous 的狀況
+// export default function QuickStart() {
+//   return <div></div>;
+// }
+
+// 首先定義一個命名函數，然後匯出
+// 好處是偵錯的時候更容易識別, 因為有明確的名稱, 同一檔案中匯出多個元件或函數, 這是更合適的
+// export function QuickStart() {
+//   return <div></div>;
+// }
+// export default QuickStart;
