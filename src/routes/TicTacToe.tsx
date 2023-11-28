@@ -2,13 +2,13 @@
 import { useState } from "react";
 import App from "../App";
 
-// 這是方塊的 component, 可以重用, 渲染, 管理和更新 UI 元素
+// 這是方塊 Square 的 component, 可以重用, 渲染, 管理和更新 UI 元素
 // 預設方塊顯示為 X
 const Square = ({
   value,
   onSquareClick,
 }: {
-  value: string | number;
+  value: string;
   onSquareClick: () => void;
 }) => {
   // Square = ({ value }) => {...} value 用來傳值
@@ -38,60 +38,51 @@ const Square = ({
   );
 };
 
-export default function TicTacToe() {
-  const [xIsNext, setXIsNext] = useState(true); // 控制 X 和 O 的顯示
-  const [squares, setSquares] = useState(Array(9).fill(null)); // 創造九個元素的陣列和將每個元素設成 null
+// Game 組件
+// 由上層 TicTacToe 傳送三個 props, xIsNext、squares 和一個新的 onPlay 來做完全控制, 這樣玩家移動後, 該 Game 組件可以用更新的 squares 陣列來呼叫函數
+const Game = ({
+  xIsNext,
+  squares,
+  onPlay,
+}: {
+  xIsNext: boolean;
+  squares: string[];
+  onPlay: (nextSquare: string[]) => void;
+}) => {
+  // const [xIsNext, setXIsNext] = useState(true); // b. 控制 X 和 O 的顯示
+  // const [squares, setSquares] = useState(Array(9).fill(null)); // a. 創造九個元素的陣列和將每個元素設成 null
+
   // 這裡運用到了 Closure 的概念
 
-  console.log(squares, "squares1"); // 開局會被呼叫, 連同父層 TicTacToe 一起被 render
+  console.log(squares, "squares1"); // 開發模式下, 開局組件會被呼叫兩次, 連同父層 Game 一起被 render, 來確保組件在 render 過程中沒有非預期的副作用, 生產模式則不會
 
   // 執行 X, O 顯示
   const handleClick = (i: number): void => {
-    // 檢查方塊內有沒有值
-    if (squares[i] || calculateWinner(squares)) {
+    // 用 early return 檢查方塊內有沒有值
+    if (calculateWinner(squares) || squares[i]) {
       return;
     }
 
     const nextSquare = squares.slice(); // 抓到所有的值
 
     // nextSquare[0] = "X"; // 把第一個設成 X, 接著 <Square value={squares[0]} onSquareClick={handleClick(0)}  /> 這是在傳一個 handleClick 函數成一個 prop,這樣會造成無窮迴圈
-    // 造成無窮迴圈的原因是 handleClick(0) 藉由 setSquares() 改變 TicTacToe() 組件的 state, 因此整個 TicTacToe() 組件都會被 re-render, 接著再 run handleClick(0), 如此重複下去
+    // 造成無窮迴圈的原因是 handleClick(0) 藉由 setSquares() 改變 Game() 組件的 state, 因此整個 Game() 組件都會被 re-render, 接著再 run handleClick(0), 如此重複下去
     if (xIsNext) {
+      console.log(xIsNext, "xIsNext");
       nextSquare[i] = "X";
     } else {
       nextSquare[i] = "O";
     }
-    setSquares(nextSquare);
-    setXIsNext(!xIsNext);
+    // 讓上層組件可以傳送 props, 替換掉 setSquares 和 setXIsNext, 由上層 TicTacToe 的 onPlay 來單一呼叫現在的 Game 組件
+    onPlay(nextSquare);
+    // setSquares(nextSquare);
+    // console.log(setSquares(nextSquare), "setSquares");
+    // setXIsNext(!xIsNext);
+    // console.log(setXIsNext(!xIsNext), "setXIsNext !xIsNext");
+    // console.log(xIsNext, "xIsNext");
 
-    console.log(squares, "squares2"); // 只有點擊的時候才會呼叫
-    console.log("clicked!");
-  };
-
-  // 判斷贏家是誰
-  const calculateWinner = (squares: string[]): string | null => {
-    // 勝利條件
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (
-        squares[a] &&
-        squares[a] === squares[b] &&
-        squares[a] === squares[c]
-      ) {
-        return squares[a];
-      }
-    }
-    return null;
+    // console.log(squares, "squares2"); // 只有點擊的時候才會呼叫
+    // console.log("clicked!");
   };
 
   const winner = calculateWinner(squares);
@@ -103,41 +94,87 @@ export default function TicTacToe() {
   }
 
   return (
-    <div className="TicTacToe">
+    <div className="game-container space-py-5 mx-[-10rem]">
+      <div className="player-status mt-4 text-center text-2xl font-black">
+        {status}
+      </div>
+      <div className="game mt-4 flex flex-col items-center">
+        <div className="game-row inline-flex	border-2 border-black">
+          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+          {/* onSquareClick={() => handleClick(0) 立即執行的方式可傳遞這些函數成 props 並往下傳 */}
+          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+        </div>
+        <div className="game-row inline-flex	border-2 border-black">
+          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+        </div>
+        <div className="game-row inline-flex	border-2 border-black">
+          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function TicTacToe() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1]; // c.讀取最後一個元素
+
+  const handlePlay = (nextSquare: string[]) => {
+    setHistory([...history, nextSquare]);
+    // console.log(setHistory(nextSquare), "setSquare");
+    setXIsNext(!xIsNext);
+  };
+  return (
+    <div className="tic-tac-toe">
       <App />
       <h1>Tic-Tac-Toe</h1>
       {/* This training is for learn by doing */}
-      <div className="board-wrapper mt-4 flex justify-evenly">
-        <div className="board-container space-py-5 mx-[-10rem]">
-          <div className="player-status mt-4 text-center text-2xl font-black">
-            {status}
-          </div>
-          <div className="board mt-4 flex flex-col items-center">
-            <div className="board-row inline-flex	border-2 border-black">
-              <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-              {/* onSquareClick={() => handleClick(0) 立即執行的方式可傳遞這些函數成 props 並往下傳 */}
-              <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-              <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-            </div>
-            <div className="board-row inline-flex	border-2 border-black">
-              <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-              <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-              <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-            </div>
-            <div className="board-row inline-flex	border-2 border-black">
-              <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-              <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-              <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-            </div>
-          </div>
-        </div>
+      <div className="game mt-4 flex justify-evenly">
+        <Game
+          xIsNext={xIsNext}
+          squares={currentSquares}
+          onPlay={handlePlay}
+        />
         <div className="game-status-container space-py-5 mx-[-10rem] mt-3">
-          1. <button>Go to Game Start</button>
+          1. <ol>Go to Game Start</ol>
         </div>
       </div>
     </div>
   );
 }
+
+// 判斷贏家是誰
+const calculateWinner = (squares: string[]): string | null => {
+  // 勝利條件
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    // 先檢查 squares[a] 有沒有值, 如果 [a] 有沒有值, 那方格尚未被佔據, 因此不可能成勝利直線
+    // 假如 [a] 有值(被 X 或 O 佔據), 這個 squares[a] === squares[b] 檢查值是否相同, 如果相同表示被同一個玩家佔據
+    // 如果 squares[a] === squares[c] 檢查值是否相同, 表示 a, b, c 都被同一個玩家佔領
+    // 但如果沒有值現滿足條件, 則返回 null 表示沒有玩家勝出
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      console.log(squares[a], "squares[a]");
+      return squares[a];
+    }
+  }
+  return null;
+};
 
 // 1. 刻版, 造出一個大方向的九宮格圖版
 // 2. 分解成小組件, 每個 Square 都是一個按鈕
@@ -160,4 +197,4 @@ export default function TicTacToe() {
 // 不過, 重新渲染對 User 來說並不明顯, 但出於性能原因, 還是會希望跳過 re-rendering tree 中明顯不受影響部分
 
 // 9. 設定一個 useState true or false 來作 "X", "O" 控制, 接著藉由 return early, 先檢查方塊內有沒有填值, 如果有就跳過
-//
+// 10. 加入 time travel 回復上一動功能,
