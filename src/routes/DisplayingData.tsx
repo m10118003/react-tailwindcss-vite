@@ -73,7 +73,7 @@ export default function DisplayingData() {
         {isColorChanged && (
           <div className="inline-flex font-black">
             Button color has been changed to
-            <p className="px-2 text-sky-600 underline decoration-dashed decoration-2 underline-offset-8 font-black">
+            <p className="px-2 font-black text-sky-600 underline decoration-dashed decoration-2 underline-offset-8">
               blue
             </p>
             !
@@ -98,7 +98,7 @@ export default function DisplayingData() {
         {isBtnChange && (
           <div className="inline-flex">
             Button color has been changed to
-            <p className="px-2 text-green-600 underline decoration-dashed decoration-2 underline-offset-8 font-black">
+            <p className="px-2 font-black text-green-600 underline decoration-dashed decoration-2 underline-offset-8">
               green
             </p>
             !

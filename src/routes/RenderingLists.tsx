@@ -13,8 +13,12 @@ export default function RenderingLists() {
   // 使用 map() 去構建產出的 array 成 li 項目陣列
   const listItems = products.map((product) => (
     <li
-      className={`text-left text-2xl py-1 ${
-        product.title  === "Banana" ? "text-yellow-600" : (product.isVegetable ? "text-green-600" : "text-red-600")
+      className={`py-1 text-left text-2xl ${
+        product.title === "Banana"
+          ? "text-yellow-600"
+          : product.isVegetable
+            ? "text-green-600"
+            : "text-red-600"
       }`}
       // style 的優先級別比 className 來得高
       // style={{

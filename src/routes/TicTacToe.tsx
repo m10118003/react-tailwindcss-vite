@@ -49,12 +49,12 @@ const Game = ({
   squares: string[];
   onPlay: (nextSquare: string[]) => void;
 }) => {
-  // const [xIsNext, setXIsNext] = useState(true); // b. 控制 X 和 O 的顯示
-  // const [squares, setSquares] = useState(Array(9).fill(null)); // a. 創造九個元素的陣列和將每個元素設成 null
+  // const [xIsNext, setXIsNext] = useState(true); // 控制 X 和 O 的顯示
+  // const [squares, setSquares] = useState(Array(9).fill(null)); // 創造九個元素的陣列和將每個元素設成 null
 
   // 這裡運用到了 Closure 的概念
 
-  console.log(squares, "squares1"); // 開發模式下, 開局組件會被呼叫兩次, 連同父層 Game 一起被 render, 來確保組件在 render 過程中沒有非預期的副作用, 生產模式則不會
+  // console.log(squares, "squares1"); // 開發模式下, 開局組件會被呼叫兩次, 連同父層 Game 一起被 render, 來確保組件在 render 過程中沒有非預期的副作用, 生產模式則不會
 
   // 執行 X, O 顯示
   const handleClick = (i: number): void => {
@@ -68,7 +68,6 @@ const Game = ({
     // nextSquare[0] = "X"; // 把第一個設成 X, 接著 <Square value={squares[0]} onSquareClick={handleClick(0)}  /> 這是在傳一個 handleClick 函數成一個 prop,這樣會造成無窮迴圈
     // 造成無窮迴圈的原因是 handleClick(0) 藉由 setSquares() 改變 Game() 組件的 state, 因此整個 Game() 組件都會被 re-render, 接著再 run handleClick(0), 如此重複下去
     if (xIsNext) {
-      console.log(xIsNext, "xIsNext");
       nextSquare[i] = "X";
     } else {
       nextSquare[i] = "O";
@@ -121,28 +120,46 @@ const Game = ({
 };
 
 export default function TicTacToe() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [history, setHistory] = useState([Array(9).fill(null)]);
-  const currentSquares = history[history.length - 1]; // c.讀取最後一個元素
+  const [xIsNext, setXIsNext] = useState(true); // 調用 setXIsNext 會觸發組件重新渲染, 在調用狀態更新函數後立即執行 console.log 可能看到的會是舊狀態
+  const [history, setHistory] = useState([Array(9).fill(null)]); // 調用 setHistory 會觸發組件重新渲染
+  const currentSquares = history[history.length - 1]; // 讀取最後一個元素
+  // 當 TicTacToe 第一次渲染 -> 印出遊戲初始歷史和當前方塊的狀態
+  // 如果有任何點擊方塊事件, 會觸發更新 setXIsNext, setHistory, 導致組件重新渲染
+  // 重新渲染過程中, 會再次印出遊戲歷史和當前方塊狀態
+  // 先渲染最上層的組件, 再去渲染下層組件
 
   const handlePlay = (nextSquare: string[]) => {
     setHistory([...history, nextSquare]);
-    // console.log(setHistory(nextSquare), "setSquare");
     setXIsNext(!xIsNext);
   };
+
+  const jumpTo = (nextMove: string[]) => {
+    console.log(nextMove, "nextMove");
+  };
+
+  // 顯示遊戲歷史過程
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = "#" + move + ". Go to move";
+    } else {
+      description = "Let the game begin!";
+    }
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(history[move])}>{description}</button>
+      </li>
+    );
+  });
   return (
     <div className="tic-tac-toe">
       <App />
       <h1>Tic-Tac-Toe</h1>
       {/* This training is for learn by doing */}
       <div className="game mt-4 flex justify-evenly">
-        <Game
-          xIsNext={xIsNext}
-          squares={currentSquares}
-          onPlay={handlePlay}
-        />
+        <Game xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
         <div className="game-status-container space-py-5 mx-[-10rem] mt-3">
-          1. <ol>Go to Game Start</ol>
+          <ol>{moves}</ol>
         </div>
       </div>
     </div>
@@ -169,7 +186,6 @@ const calculateWinner = (squares: string[]): string | null => {
     // 如果 squares[a] === squares[c] 檢查值是否相同, 表示 a, b, c 都被同一個玩家佔領
     // 但如果沒有值現滿足條件, 則返回 null 表示沒有玩家勝出
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      console.log(squares[a], "squares[a]");
       return squares[a];
     }
   }
@@ -197,4 +213,5 @@ const calculateWinner = (squares: string[]): string | null => {
 // 不過, 重新渲染對 User 來說並不明顯, 但出於性能原因, 還是會希望跳過 re-rendering tree 中明顯不受影響部分
 
 // 9. 設定一個 useState true or false 來作 "X", "O" 控制, 接著藉由 return early, 先檢查方塊內有沒有填值, 如果有就跳過
-// 10. 加入 time travel 回復上一動功能,
+// 10. 將 TicTacToe 作為一個更上層的組件, 來包住 Game 組件, 並將控制轉移至最上層的組件, Lifting state up
+// 11. 加入 time travel 回復上一動功能,
