@@ -120,34 +120,47 @@ const Game = ({
 };
 
 export default function TicTacToe() {
-  const [xIsNext, setXIsNext] = useState(true); // 調用 setXIsNext 會觸發組件重新渲染, 在調用狀態更新函數後立即執行 console.log 可能看到的會是舊狀態
+  // const [xIsNext, setXIsNext] = useState(true); // 調用 setXIsNext 會觸發組件重新渲染, 在調用狀態更新函數後立即執行 console.log 可能看到的會是舊狀態
   const [history, setHistory] = useState([Array(9).fill(null)]); // 調用 setHistory 會觸發組件重新渲染
-  const currentSquares = history[history.length - 1]; // 讀取最後一個元素
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0; // 不需同時 store !xIsNext 和 nextMove 在 setXIsNext 的 state 內
+  // const currentSquares = history[history.length - 1]; // 讀取最後一個元素
+  const currentSquares = history[currentMove];
   // 當 TicTacToe 第一次渲染 -> 印出遊戲初始歷史和當前方塊的狀態
   // 如果有任何點擊方塊事件, 會觸發更新 setXIsNext, setHistory, 導致組件重新渲染
   // 重新渲染過程中, 會再次印出遊戲歷史和當前方塊狀態
   // 先渲染最上層的組件, 再去渲染下層組件
 
   const handlePlay = (nextSquare: string[]) => {
-    setHistory([...history, nextSquare]);
-    setXIsNext(!xIsNext);
+    // 創造新的歷史紀錄
+    const nextHistory = [
+      ...history.slice(0, currentMove + 1), // 擷取移動之前所有歷史狀態, 這樣回到過去某步進行新行動時, 可以刪除那個步驟後的所有歷史紀錄
+      nextSquare,
+    ];
+    // setHistory([...history, nextSquare]);
+    setHistory(nextHistory); // 更新歷史狀態
+    setCurrentMove(nextHistory.length - 1); // 更新當前行動
+    // setXIsNext(!xIsNext); // 切換玩家
   };
 
-  const jumpTo = (nextMove: string[]) => {
-    console.log(nextMove, "nextMove");
+  // 回復上一動功能, 並切換到某個特定行動步驟, parm nextMove 代表遊戲歷史步驟的索引
+  const jumpTo = (nextMove: number) => {
+    setCurrentMove(nextMove); // 設置當前行動, 可以將遊戲狀態回復到玩家選擇的步驟
+    // setXIsNext(nextMove % 2 === 0); // 判斷下一個應該行動的玩家, 假如 nextMove 是偶數, %2 會是 0, 因此 setXIsNext(true) 會被 call, 表示下一個玩家是 X
+    // console.log(nextMove, "nextMove");
   };
 
-  // 顯示遊戲歷史過程
-  const moves = history.map((squares, move) => {
+  // 顯示遊戲行動步驟歷史過程
+  const moves = history.map((squares: string[], move: number): JSX.Element => {
     let description;
     if (move > 0) {
-      description = "#" + move + ". Go to move";
+      description = `Go to move  #` + move;
     } else {
-      description = "Let the game begin!";
+      description = `Let the game begin!`;
     }
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(history[move])}>{description}</button>
+        <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
   });
@@ -157,9 +170,15 @@ export default function TicTacToe() {
       <h1>Tic-Tac-Toe</h1>
       {/* This training is for learn by doing */}
       <div className="game mt-4 flex justify-evenly">
-        <Game xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
-        <div className="game-status-container space-py-5 mx-[-10rem] mt-3">
-          <ol>{moves}</ol>
+        <div className="game-board">
+          <Game
+            xIsNext={xIsNext}
+            squares={currentSquares}
+            onPlay={handlePlay}
+          />
+        </div>
+        <div className="game-status-container space-py-5 mx-[-10rem] flex items-start mt-3">
+          <ol className="game-status list-decimal">{moves}</ol>
         </div>
       </div>
     </div>
@@ -192,8 +211,8 @@ const calculateWinner = (squares: string[]): string | null => {
   return null;
 };
 
-// 1. 刻版, 造出一個大方向的九宮格圖版
-// 2. 分解成小組件, 每個 Square 都是一個按鈕
+// 1. Building the board, 刻版, 造出一個大方向的九宮格圖版
+// 2. Making an interactive component: 分解成小組件, 每個 Square 都是一個按鈕
 // 3. 造出電路, 使用 useState 造出預設值, 並使用 setIsClicked 來控制更改的值(isClicked)
 
 // 4. Lifting state up(提升狀態):
@@ -202,16 +221,43 @@ const calculateWinner = (squares: string[]): string | null => {
 // 從多個 children 中拿取資料, 或兩個 子組件的溝通, 建議在父組件中宣告共享的 state, 從父層藉由 props 回傳 state 到子組件, 由上而下, 不超過三層, 這將保持子組件同步彼此和其父祖件一致
 // 這常使用在重構 React 多個組件時
 
-// 5. 透過提升狀態, 讓 Square 接收父層值
-// 6. 接著空的 Square 在被按下的時候必須要能接收 'X', 'O' 或 null, 並且 Square 必須要能更新 TicTacToe 的狀態, 而 Square 組件中的 State 是私有的, 不能直接被定義, 因此無法從 Square 直接去更新 TicTacToe 的狀態
-// 7. 為了將父層 TicTacToe 組件的 onClick 事件傳到 Square, 可以藉由 handleClick() 傳遞 props 去更新 Square 的狀態, 接著 Square 將會由 onSquareClick={() => handleClick(0) 來做連接到父層, 這立即執行的方式可傳遞這些函數成 props 並往下傳遞
-// 8. 讓父層組件能處裡 state 後, 點擊 Square 時, Square 將可以要求父層組件更新 State, 同時父子組件能自動更新渲染, 要記得 onClick 是內建在 Square 的, 可以隨意命名
+// 5. Lifting state up: 透過提升狀態, 讓 Square 接收父層值
+// 接著空的 Square 在被按下的時候必須要能接收 'X', 'O' 或 null, 並且 Square 必須要能更新 TicTacToe 的狀態, 而 Square 組件中的 State 是私有的, 不能直接被定義, 因此無法從 Square 直接去更新 TicTacToe 的狀態
+// 為了將父層 TicTacToe 組件的 onClick 事件傳到 Square, 可以藉由 handleClick() 傳遞 props 去更新 Square 的狀態, 接著 Square 將會由 onSquareClick={() => handleClick(0) 來做連接到父層, 這立即執行的方式可傳遞這些函數成 props 並往下傳遞
+// 讓父層組件能處裡 state 後, 點擊 Square 時, Square 將可以要求父層組件更新 State, 同時父子組件能自動更新渲染, 要記得 onClick 是內建在 Square 的, 可以隨意命名
 
-// Immutability 不可變更的性質, 不改變原本數據的值, 但可以藉由 拷貝 一份副本來改變值
+// 6. Why immutability is important: Immutability 不可變更的性質, 不改變原本數據的值, 但可以藉由 拷貝 一份副本來改變值
 // 通常有兩種途徑去改變資料, 第一種是藉由直接改變資料的值來 mutate data, 第二種是用一個新的 copy (shallow copy)來替換掉 data
 // 不可變的性質有個好處是, 當預設狀況下, 父組件的 state 更改時, 子組件也能自動重新呈現, 甚至可能包含未受影響的子組件, 這樣會使得維護成本降低
 // 不過, 重新渲染對 User 來說並不明顯, 但出於性能原因, 還是會希望跳過 re-rendering tree 中明顯不受影響部分
 
-// 9. 設定一個 useState true or false 來作 "X", "O" 控制, 接著藉由 return early, 先檢查方塊內有沒有填值, 如果有就跳過
-// 10. 將 TicTacToe 作為一個更上層的組件, 來包住 Game 組件, 並將控制轉移至最上層的組件, Lifting state up
-// 11. 加入 time travel 回復上一動功能,
+// 7. Taking turns: 設定一個 useState true or false 來作 "X", "O" 控制, 接著藉由 return early, 先檢查方塊內有沒有填值, 如果有就跳過
+// 8. Lifting state up, again,將 TicTacToe 作為一個更上層的組件, 來包住 Game 組件, 並將控制轉移至最上層的組件, Lifting state up
+// 9. Showing the past moves: 加入 time travel, 可以看遊戲在每一步發生的狀況
+
+// Picking key: 當清單被重新渲染, React 會拿每個清單中物品的 key 並且在上一個清單的物品中尋找 matching 的 key
+// 假如當前清單有 key, 且先前不存在, React 會創造組件; 但假如當前清單缺少 key, 但先前存在於清單中, React 會摧毀先前的組件
+// 假如 兩個 keys match, 則相關的組件會被移動; Keys 會告訴 React 有關每個組件的辨識, 其會允許 React 去保持 state 在重新渲染間
+// 假如一個組件的 key 改變了, 則組件將會被摧毀和被重新創造一個新 state
+
+// **Key 是 React 中有著特殊和保留的屬性; 當一元素被創造, React 會提取 key 屬性, 並直接將 key 儲存在 return 的元素中**
+// Key 看起來像是作為 props 傳遞的, 但 React 會自動使用 key 來決定要更新那些組件, 組件無法訪問 父層 所指定的 key
+// **強烈建議指定 keys 在 build 一個動態的 lists** 假如你沒有一個適當的 key, 則需要考慮重建資料結構的方式
+// 如果沒有 key 被指定, React 將會報錯, 並且用一個 array index 作為預設值, 這樣當重新排 清單物品順序 或 插入/移除物品 可能會有問題
+// 明確的傳遞 key={i} 會有著跟  array index 一樣的問題, 也同樣不建議這樣做
+
+// 10. Implementing time travel: 使用獨特的 ID 做關聯到每個 過去的遊戲歷史(每個上一動), moves 將不會被重排, 刪除或插入到中間, 因此可以安全地使用 index 當作 key
+// 將 TicTacToe() 組件保持追蹤 user 當前正在觀看的每個步驟, 創造一個新的 state variable 來儲存這些步驟
+// 做出 go back in time 回到過去和然後從那個時間點開始新的行動, 且你只想保留那個時間點的歷史紀錄
+// 因此無須在歷史紀錄中的所有物品之後(... spread syntax)加入 nextSquare , 應當加入其在 history.slice(0, currentMove + 1) 中的所有物品之後, 這樣可以保留舊的歷史紀錄部分
+// 每次行動時, 都需要去更新 currentMove 去指向最新的歷史條目
+
+// 11. Final cleanup: 清除歷史軌跡, 可以省略  const [xIsNext, setXIsNext] = useState(true), setXIsNext(!xIsNext);(切換玩家), setXIsNext(nextMove % 2 === 0);(判斷下一個行動玩家)
+// 12. Wrapping up: 包起來, 讓井字遊戲可以玩, 指出玩家何時贏得遊戲, 儲存遊戲歷程和進度, 允許玩家去回顧遊戲的歷程
+
+// 如果要增加 React 練習
+// 1. 只有在當前的行動, 顯示 "你正在行動 #...", 而不是一個按鈕
+// 2. 重寫 <Game... /> 組件, 並使用雙迴圈去造出方塊, 而不是 hardcoding
+// 3. 加入 toggle button, 並且讓按鈕可以篩步驟在昇序或是降序排列
+// 4. 當有玩家贏時, highlight the winning 3 squares, 且沒有人贏時, 顯示訊息結果為平手, 開始新一局
+// 5. 在歷史軌跡清單中, 顯示每個行動在表格(row, column)上的位置

@@ -182,14 +182,14 @@ export function Components() {
           <div className="mt-4">
             <div className="text-center text-3xl font-black">
               "Function starts with use called Hooks - Use it!!!"
-              <p className="ml-4 mt-1 flex justify-center text-xl text-gray-600">
+              <div className="ml-4 mt-1 flex justify-center text-xl text-gray-600">
                 - 函數名稱以 <p className="px-2 text-teal-500"> use </p>{" "}
                 開頭，表示這是一個 <p className="px-2 text-teal-500"> Hook </p>
                 。{/* 可以藉由合併已存在的 Hooks 來寫出新的 Hooks */}
                 {/* Hooks 相比其他函數是有 restricted, 只能在組件(或其他 Hooks)的頂部調用 */}
                 {/* 如果要使用 useState, 在 condition 或 loop 中, 使用一個新的組件, 並放進去 */}
                 {/* 通常將需要組件共享資料和一起更新 */}
-              </p>
+              </div>
             </div>
           </div>
 
@@ -220,3 +220,15 @@ export function Components() {
 }
 
 export default Components;
+// 使用匿名函數直接匯出
+// 可以直接匯出, 但偵錯的時候可能會發生組件顯示為 Anonymous 的狀況
+// export default function Components() {
+//   return <div></div>;
+// }
+
+// 首先定義一個命名函數，然後匯出
+// 好處是偵錯的時候更容易識別, 因為有明確的名稱, 同一檔案中匯出多個元件或函數, 這是更合適的
+// export function Components() {
+//   return <div></div>;
+// }
+// export default Components;

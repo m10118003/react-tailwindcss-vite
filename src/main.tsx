@@ -14,6 +14,7 @@ import MarkupWithJSX from './routes/MarkupWithJSX';
 import DisplayingData from './routes/DisplayingData';
 import RenderingLists from './routes/RenderingLists';
 import TicTacToe from './routes/TicTacToe';
+import ThinkingReact from './routes/ThinkingReact';
 import './index.css'
 
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter( [
   {
     path: "/TicTacToe",
     element: <TicTacToe />,
+  },
+  {
+    path: "/ThinkingReact",
+    element: <ThinkingReact />,
   },
 ]);
 
