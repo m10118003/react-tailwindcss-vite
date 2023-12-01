@@ -1,44 +1,18 @@
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom"; // 引入 React Router 相關元件
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import NavLink from "./components/NavLink";
 
 // import "./App.css";
 import "./styles/style.scss";
 
 const links = [
-  {
-    to: "/Home",
-    label: "Home",
-  },
-  {
-    to: "/QuickStart",
-    label: "Quick Start",
-  },
-  {
-    to: "/Components",
-    label: "Components",
-  },
-  {
-    to: "/MarkupWithJSX",
-    label: "Markup With JSX",
-  },
-  {
-    to: "/DisplayingData",
-    label: "Displaying Data",
-  },
-  {
-    to: "/RenderingLists",
-    label: "Rendering Lists",
-  },
-  {
-    to: "/TicTacToe",
-    label: "Tic-Tac-Toe",
-  },
-  {
-    to: "/ThinkingReact",
-    label: "Thinking React",
-  },
+  { id: "1", to: "/Home", label: "Home" },
+  { id: "2", to: "/QuickStart", label: "Quick Start" },
+  { id: "3", to: "/Components", label: "Components" },
+  { id: "4", to: "/MarkupWithJSX", label: "Markup With JSX" },
+  { id: "5", to: "/DisplayingData", label: "Displaying Data" },
+  { id: "6", to: "/RenderingLists", label: "Rendering Lists" },
+  { id: "7", to: "/TicTacToe", label: "Tic-Tac-Toe" },
+  { id: "8", to: "/ThinkingReact", label: "Thinking React" },
 ];
 
 export default function App() {
@@ -46,21 +20,10 @@ export default function App() {
   return (
     <>
       <div className="App flex">
-        <div className="flex flex-wrap">
-          <a href="https://vitejs.dev" target="_blank" rel="noopener">
-            <img src={viteLogo} className="logo mx-2 mt-3" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank" rel="noopener">
-            <img
-              src={reactLogo}
-              className="logo react mx-2 mt-3"
-              alt="React logo"
-            />
-          </a>
-        </div>
-        <div className="align-center flex flex-wrap justify-between">
+
+        <div className="flex flex-wrap items-center justify-start">
           {links.map((link) => (
-            <NavLink key={link.to} to={link.to}>
+            <NavLink key={link.id} to={link.to}>
               {link.label}
             </NavLink>
           ))}

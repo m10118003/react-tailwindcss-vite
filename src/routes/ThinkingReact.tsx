@@ -4,7 +4,7 @@ export default function ThinkingReact() {
   return (
     <div className="thinking-react">
       <App />
-      <h1>Thinking React</h1>
+      <h1 className="mt-5 pt-5">Thinking React</h1>
     </div>
   );
 }

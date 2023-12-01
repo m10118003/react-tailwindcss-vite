@@ -38,7 +38,9 @@ export default function DisplayingData() {
     <>
       <App />
       <>
-        <div className="text-center text-3xl font-black">"Displaying Data"</div>
+        <div className="mt-5 pt-5 text-center text-3xl font-black">
+          "Displaying Data"
+        </div>
       </>
       <div className="mt-4 flex items-center justify-center gap-4">
         <div className="mr-2 text-left text-2xl font-black">{user.name}</div>

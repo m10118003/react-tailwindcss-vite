@@ -36,7 +36,7 @@ export default function RenderingLists() {
     <>
       <App />
       <>
-        <div className="text-center text-3xl font-black">"Shopping list"</div>
+        <div className="mt-5 pt-5 text-center text-3xl font-black">"Shopping list"</div>
       </>
       <div className="mt-4 flex justify-center py-0">
         <ul>{listItems}</ul>

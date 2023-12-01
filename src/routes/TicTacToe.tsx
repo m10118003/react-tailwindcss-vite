@@ -167,7 +167,7 @@ export default function TicTacToe() {
   return (
     <div className="tic-tac-toe">
       <App />
-      <h1>Tic-Tac-Toe</h1>
+      <h1 className="mt-5 pt-5">Tic-Tac-Toe</h1>
       {/* This training is for learn by doing */}
       <div className="game mt-4 flex justify-evenly">
         <div className="game-board">
@@ -177,7 +177,7 @@ export default function TicTacToe() {
             onPlay={handlePlay}
           />
         </div>
-        <div className="game-status-container space-py-5 mx-[-10rem] flex items-start mt-3">
+        <div className="game-status-container space-py-5 mx-[-10rem] mt-3 flex items-start">
           <ol className="game-status list-decimal">{moves}</ol>
         </div>
       </div>

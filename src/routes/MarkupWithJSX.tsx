@@ -6,7 +6,9 @@ function MarkupWithJSX() {
     <>
       <App />
       <>
-        <div className="text-center text-3xl font-black">"Markup syntax"</div>
+        <div className="mt-5 pt-5 text-center text-3xl font-black">
+          "Markup syntax"
+        </div>
       </>
       {/* 使用 grid 來進行布局 */}
       <div className="ml-10 mt-4 grid justify-center gap-4 font-black">

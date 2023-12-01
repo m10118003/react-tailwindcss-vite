@@ -1,6 +1,8 @@
 // Home.tsx
 import App from "../App";
 import { useState } from "react";
+import reactLogo from "@/assets/react.svg";
+import viteLogo from "@/assets/vite.svg";
 
 export default function Home() {
   const [countString, setCount] = useState(""); // 設定初始值為空字串
@@ -23,33 +25,47 @@ export default function Home() {
     <>
       <div>
         <App />
-        <h1 className="mt-5 cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
-          Vite + React + TailwindCSS
-        </h1>
-        <div className="cards row-auto">
-          <button
-            className="card-btn border-black-600 border-2 border-dashed hover:bg-[#feb28e] hover:text-indigo-600"
-            onClick={clickBtn}
-          >
-            Start? {countString}
-          </button>
-          <button
-            className="card-btn border-black-600 col-span-6 border-2 border-dashed hover:bg-sky-200 hover:text-indigo-600"
-            onClick={clickBtn2}
-          >
-            Keep going? {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
+        <div className="p-5">
+          <h1 className="cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
+            Vite + React + TailwindCSS
+          </h1>
+          <div className="flex justify-center p-5">
+            <a href="https://vitejs.dev" target="_blank" rel="noopener">
+              <img src={viteLogo} className="logo mx-4" alt="Vite logo" />
+            </a>
+            <a href="https://react.dev" target="_blank" rel="noopener">
+              <img
+                src={reactLogo}
+                className="logo react mx-4"
+                alt="React logo"
+              />
+            </a>
+          </div>
+          <div className="cards row-auto">
+            <button
+              className="card-btn border-black-600 border-2 border-dashed hover:bg-[#feb28e] hover:text-indigo-600"
+              onClick={clickBtn}
+            >
+              Start? {countString}
+            </button>
+            <button
+              className="card-btn border-black-600 col-span-6 border-2 border-dashed hover:bg-sky-200 hover:text-indigo-600"
+              onClick={clickBtn2}
+            >
+              Keep going? {count}
+            </button>
+            <p>
+              Edit <code>src/App.tsx</code> and save to test HMR
+            </p>
+          </div>
+          <p className="read-the-docs">
+            Click on the Vite and React logos to learn more
           </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
 
-        <h1 className="mt-5 cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
-          Hello world!
-        </h1>
+          <h1 className="mt-5 cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
+            Hello world!
+          </h1>
+        </div>
       </div>
     </>
   );

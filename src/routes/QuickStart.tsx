@@ -5,7 +5,7 @@ export default function QuickStart() {
   return (
     <div className="QuickStart">
       <App />
-      <div className="leading-loose">
+      <div className="leading-loose mt-5 p-5">
         <h1>Hello React.</h1>
         <h2 className="mt-4 text-2xl font-black text-rose-600">
           Start editing to see some magic happen!

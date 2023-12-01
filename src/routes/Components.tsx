@@ -140,11 +140,11 @@ export function Components() {
   return (
     <div className="Components">
       <App />
-      <>
+      <div className="mt-5 pt-5">
         <div className="text-center text-3xl font-black">
           "Single button - Sharing data"
         </div>
-      </>
+      </div>
       <div className="mt-4 flex flex-col items-center justify-center">
         <div className="mt-4">
           <button
