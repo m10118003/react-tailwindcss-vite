@@ -93,14 +93,17 @@ const SearchBar = () => {
 };
 
 // 最上層父層組件
+// 找出最上層父層元素後再加入 state, 來 Hook
 export default function ThinkingReact() {
+  const [filterText, setFilterText] = useState("");
+  const [inStockOnly, setInStockOnly] = useState(false);
   return (
     <div className="thinking-react">
       <App />
       <h1 className="mt-5 pt-5">Thinking React</h1>
       <div className="filterable-product-table flex flex-col justify-center">
-        <SearchBar />
-        <ProductTable products={jsonApi} />
+        <SearchBar filterText={filterText} inStockOnly={inStockOnly} />
+        <ProductTable products={jsonApi} filterText={filterText} inStockOnly={inStockOnly} />
       </div>
     </div>
   );
@@ -129,7 +132,7 @@ console.log(jsonApi, "jsonApi");
 // 最後, 你將連接組件來完成一個 data flows
 // 以下將學習如何建立可搜尋資料表單(Searchable product data table)
 
-// 1. 一開始皆從模擬開始, 假設我們有 JSON API, 拆分 UI 成有結構層次的組件
+// 1. 一開始皆從模擬開始, 假設我們有 JSON API, 拆分 UI 成有結構層次的組件:
 // 程式方面, 使用相同技術來決定是否建立新函數或物件, 其中一種是使用單一責任原則(SRP), 如果持續增長, 應該被分解成更小的組件
 // CSS 方面, 思考每個 class selector 的用途
 // Design 方面, 如何組織各層的設計
@@ -198,3 +201,5 @@ console.log(jsonApi, "jsonApi");
 // 接著 決定組件使用 state
 // ProductTable 根據 state 來過濾產品清單(搜尋文字和 checkbox 的值)
 // SearchBar 需要根據 state 顯示(搜尋文字和 checkbox 的值)
+// 找出其共通的父層組件, ThinkingReact 組件, 並且在父層組件中加入 state 到子層組件中
+// -> useState() Hook
