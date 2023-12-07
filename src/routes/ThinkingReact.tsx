@@ -1,48 +1,60 @@
 import { useState } from "react";
 import App from "../App";
 
-type ProductCategoryRowProps = {
-  category: string;
-};
+interface SearchBarProps {
+  filterText: string;
+  inStockOnly: boolean;
+  onFilterTextChange: (filterText: string) => void;
+  onInStockOnlyChange: (inStockOnly: boolean) => void;
+}
 
-type Products = {
+interface ProductTableProps {
+  products: Products[];
+  filterText: string;
+  inStockOnly: boolean;
+}
+
+interface ProductCategoryRowProps {
+  category: string;
+}
+
+interface Products {
   id: number;
   category: string;
-  price: number | string;
+  price: string;
   stocked: boolean;
   name: string;
-};
+}
 
-// 接受一個 product 物件, 用於顯示產品名稱和價格, 如果沒有庫存則顯示紅色和售完
-const ProductRow = ({ product }: { product: Products }): JSX.Element => {
-  const name = product.stocked ? (
-    product.name
-  ) : (
-    <span className="text-red-600">{product.name}</span>
-  );
-  const soldOutPrice = product.stocked ? (
-    product.price
-  ) : (
-    <span className="text-red-600">{"Sold out!"}</span>
-  );
+// 搜尋欄位, 用於過濾產品
+const SearchBar = ({
+  filterText,
+  inStockOnly,
+  onFilterTextChange,
+  onInStockOnlyChange,
+}: SearchBarProps) => {
+  // const [filterText, setFilterText] = useState("");
   return (
-    <tr className="table-body flex w-8/12 flex-row justify-between p-1">
-      <td>{name}</td>
-      {/* <td>{product.price}</td> */}
-      <td>{soldOutPrice}</td>
-    </tr>
-  );
-};
-
-// 顯示產品分類 title 和資訊
-// 接受的 category 屬性 是產品分類
-const ProductCategoryRow = ({
-  category,
-}: ProductCategoryRowProps): JSX.Element => {
-  return (
-    <tr className="table-header m-0 flex justify-center p-2">
-      <th className="mx-8">{category}</th>
-    </tr>
+    <form className="flex flex-col items-center">
+      <input
+        className="search-input border-black-600 mx-3 mt-4 w-[250px] rounded border-2 p-1 hover:bg-sky-200 hover:shadow-lg"
+        type="text"
+        placeholder=" Search..."
+        value={filterText}
+        onChange={(e) => onFilterTextChange(e.target.value)}
+      />
+      <div>
+        <label htmlFor="">
+          <input
+            className="show-in-stock ml-2 mr-2 mt-4"
+            type="checkbox"
+            checked={inStockOnly}
+            onChange={(e) => onInStockOnlyChange(e.target.checked)}
+          />{" "}
+          Only show products in stock
+        </label>
+      </div>
+    </form>
   );
 };
 
@@ -53,11 +65,7 @@ const ProductTable = ({
   products,
   filterText,
   inStockOnly,
-}: {
-  products: Products[];
-  filterText: string;
-  inStockOnly: boolean;
-}) => {
+}: ProductTableProps) => {
   const rows: JSX.Element[] = [];
   let lastCategory: string | null = null;
   products.forEach((product) => {
@@ -92,40 +100,36 @@ const ProductTable = ({
   );
 };
 
-// 搜尋欄位, 用於過濾產品
-const SearchBar = ({
-  filterText,
-  inStockOnly,
-  onFilterTextChange,
-  onInStockOnlyChange,
-}: {
-  filterText: string;
-  inStockOnly: boolean;
-  onFilterTextChange: (value: string) => void;
-  onInStockOnlyChange: (value: boolean) => void;
-}) => {
-  // const [filterText, setFilterText] = useState("");
+// 顯示產品分類 title 和資訊
+// 接受的 category 屬性 是產品分類
+const ProductCategoryRow = ({
+  category,
+}: ProductCategoryRowProps): JSX.Element => {
   return (
-    <form className="flex flex-col items-center">
-      <input
-        className="search-input border-black-600 mx-3 mt-4 w-[250px] rounded border-2 p-1 hover:bg-sky-200 hover:shadow-lg"
-        type="text"
-        placeholder=" Search..."
-        value={filterText}
-        onChange={(e) => onFilterTextChange(e.target.value)}
-      />
-      <div>
-        <label htmlFor="">
-          <input
-            className="show-in-stock ml-2 mr-2 mt-4"
-            type="checkbox"
-            checked={inStockOnly}
-            onChange={(e) => onInStockOnlyChange(e.target.checked)}
-          />{" "}
-          Only show products in stock
-        </label>
-      </div>
-    </form>
+    <tr className="table-header m-0 flex justify-center p-2">
+      <th className="mx-8">{category}</th>
+    </tr>
+  );
+};
+
+// 接受一個 product 物件, 用於顯示產品名稱和價格, 如果沒有庫存則顯示紅色和售完
+const ProductRow = ({ product }: { product: Products }): JSX.Element => {
+  const name = product.stocked ? (
+    product.name
+  ) : (
+    <span className="text-red-600">{product.name}</span>
+  );
+  const soldOutPrice = product.stocked ? (
+    product.price
+  ) : (
+    <span className="text-red-600">{"Sold out!"}</span>
+  );
+  return (
+    <tr className="table-body flex w-8/12 flex-row justify-between p-1">
+      <td>{name}</td>
+      {/* <td>{product.price}</td> */}
+      <td>{soldOutPrice}</td>
+    </tr>
   );
 };
 
@@ -161,7 +165,8 @@ const jsonApi = [
     category: "Fruits", 
     price: "$1", 
     stocked: true, 
-    name: "Apple" },
+    name: "Apple" 
+  },
   {
     id: 2,
     category: "Fruits",
@@ -194,7 +199,8 @@ const jsonApi = [
     category: "Vegetables", 
     price: "$1", 
     stocked: true, 
-    name: "Peas" },
+    name: "Peas" 
+  },
 ];
 
 console.log(jsonApi, "jsonApi");
