@@ -15,7 +15,7 @@ export default function DisplayingData() {
   const [isColorChanged, setIsColorChanged] = useState(false);
 
   const btnChangeColor = (): void => {
-    console.log("change color");
+    // console.log("change color");
     setButtonClass(changedButtonClass);
     setIsColorChanged(true);
   };
@@ -59,13 +59,13 @@ export default function DisplayingData() {
       </>
 
       <div className="conditional-rendering mt-4 font-black	">
-        Conditional rendering with if/else.
+        Conditional rendering with control.
         <button
           onClick={btnChangeColor}
           onMouseLeave={resetButtonColor}
           className={`font-black ${buttonClass}`}
         >
-          Change color
+          Change button color blue
         </button>
       </div>
 

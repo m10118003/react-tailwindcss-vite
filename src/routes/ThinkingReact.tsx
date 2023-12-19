@@ -138,11 +138,28 @@ const ProductRow = ({ product }: { product: Products }): JSX.Element => {
 export default function ThinkingReact() {
   const [filterText, setFilterText] = useState("");
   const [inStockOnly, setInStockOnly] = useState(false);
+
+  // JSX 和 { }
+  // 在 ThinkingReact.tsx 中實作一個抓到星期幾的做法
+  // { } 可以如同文字直接使用在 HTML 中, 常應用在塞個變數和 function
+  // 除了傳遞 字串, 數字, 和其他 JS 表達式外, 還能在 JSX 中傳遞物件和CSS, 要包起來使用雙括號 {{name: "Hedy Lamarr", inventions: 5}}
+  // Inline style 屬性必須以駝峰式命名法命名, 例如 backgroundColor, marginLeft...等
+  const today = new Date();
+  const formatDate = (date: number | Date | undefined) => {
+    return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
+  };
+
   return (
     <div className="thinking-react">
       <App />
       <h1 className="mt-5 p-5">Thinking React</h1>
       <div className="filterable-product-table mt-4 inline-flex flex-col justify-center rounded border-2 border-sky-200 bg-gray-100 shadow hover:shadow-lg">
+        <h2 className="mt-2 inline-flex justify-center font-extrabold">
+          Stock List for
+          <div style={{ color: "#646cff", marginLeft: "5px" }}>
+            {formatDate(today)}
+          </div>
+        </h2>
         <SearchBar
           filterText={filterText}
           inStockOnly={inStockOnly}
@@ -161,12 +178,7 @@ export default function ThinkingReact() {
 
 // 模擬 json api
 const jsonApi = [
-  { id: 1, 
-    category: "Fruits", 
-    price: "$1", 
-    stocked: true, 
-    name: "Apple" 
-  },
+  { id: 1, category: "Fruits", price: "$1", stocked: true, name: "Apple" },
   {
     id: 2,
     category: "Fruits",
@@ -195,15 +207,10 @@ const jsonApi = [
     stocked: false,
     name: "Pumpkin",
   },
-  { id: 6, 
-    category: "Vegetables", 
-    price: "$1", 
-    stocked: true, 
-    name: "Peas" 
-  },
+  { id: 6, category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
 ];
 
-console.log(jsonApi, "jsonApi");
+// console.log(jsonApi, "jsonApi");
 
 // React, 當你建造 UI(User Interface) 的時候, 你會將其分解為組件
 // 接著, 你將在每一個組件敘述不同的視覺階段

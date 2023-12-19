@@ -1,24 +1,21 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom/client'
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
 // import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom"; // 引入 React Router 相關元件
 // import * as ReactDOM from 'react-dom'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import App from './App.tsx'
-import Home from './routes/Home';
-import QuickStart from './routes/QuickStart';
-import Components from './routes/Components';
-import MarkupWithJSX from './routes/MarkupWithJSX';
-import DisplayingData from './routes/DisplayingData';
-import RenderingLists from './routes/RenderingLists';
-import TicTacToe from './routes/TicTacToe';
-import ThinkingReact from './routes/ThinkingReact';
-import './index.css'
+import Home from "./routes/Home";
+import QuickStart from "./routes/QuickStart";
+import Components from "./routes/Components";
+import MarkupWithJSX from "./routes/MarkupWithJSX";
+import DisplayingData from "./routes/DisplayingData";
+import RenderingLists from "./routes/RenderingLists";
+import TicTacToe from "./routes/TicTacToe";
+import ThinkingReact from "./routes/ThinkingReact";
+import DescribeUI from "./routes/DescribeUI";
+import "./index.css";
 
-
-const router = createBrowserRouter( [
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
@@ -55,10 +52,14 @@ const router = createBrowserRouter( [
     path: "/ThinkingReact",
     element: <ThinkingReact />,
   },
+  {
+    path: "/DescribeUI",
+    element: <DescribeUI />,
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} /> 
+    <RouterProvider router={router} />
   </React.StrictMode>,
-)
+);

@@ -13,6 +13,7 @@ const links = [
   { id: "6", to: "/RenderingLists", label: "Rendering Lists" },
   { id: "7", to: "/TicTacToe", label: "Tic-Tac-Toe" },
   { id: "8", to: "/ThinkingReact", label: "Thinking React" },
+  { id: "9", to: "/DescribeUI", label: "Describe UI" },
 ];
 
 export default function App() {
