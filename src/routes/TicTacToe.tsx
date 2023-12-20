@@ -151,7 +151,7 @@ export default function TicTacToe() {
   };
 
   // 顯示遊戲行動步驟歷史過程
-  const moves = history.map((squares: string[], move: number): JSX.Element => {
+  const moves = history.map((_squares: string[], move: number): JSX.Element => {
     let description;
     if (move > 0) {
       description = `Go to move  #` + move;
