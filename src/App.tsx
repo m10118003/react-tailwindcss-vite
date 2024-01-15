@@ -13,6 +13,7 @@ const links = [
   { id: "7", to: "/TicTacToe", label: "Tic-Tac-Toe" },
   { id: "8", to: "/ThinkingReact", label: "Thinking React" },
   { id: "9", to: "/DescribeUI", label: "Describe UI" },
+  { id: "10", to: "/AxiosDemoPhase2", label: "Axios Demo" },
 ];
 
 export default function App() {
@@ -20,14 +21,13 @@ export default function App() {
   return (
     <>
       <div className="App flex">
-
-        <div className="flex flex-wrap items-center justify-start">
+        <nav className="flex flex-wrap items-center justify-start">
           {links.map((link) => (
             <NavLink key={link.id} to={link.to}>
               {link.label}
             </NavLink>
           ))}
-        </div>
+        </nav>
       </div>
     </>
   );

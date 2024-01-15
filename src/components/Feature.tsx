@@ -1,4 +1,4 @@
-import { getImageUrl } from "../libs/util";
+import { getImageUrl } from "../utils/imageUrlUtil";
 
 interface Shape {
   imageId: string;

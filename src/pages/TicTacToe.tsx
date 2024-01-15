@@ -1,6 +1,6 @@
 // TicTacToe.tsx
 import { useState } from "react";
-import App from "../App";
+import App from "@/App";
 
 // 這是方塊 Square 的 component, 可以重用, 渲染, 管理和更新 UI 元素
 // 預設方塊顯示為 X

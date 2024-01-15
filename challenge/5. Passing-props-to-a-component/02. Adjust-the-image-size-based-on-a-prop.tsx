@@ -1,9 +1,10 @@
-import { getImgUrlOptionalSize } from './utils.js';
+import React from "react";
+import { getImgUrlOptionalSize } from "../../src/utils/imageUrlUtil";
 
 function Avatar({ person, size }) {
-  let avatarSize = 's';
+  let avatarSize = "s";
   if (size > 90) {
-    avatarSize === 'b'
+    avatarSize = "b";
   }
   return (
     <img
@@ -22,22 +23,22 @@ export default function Profile() {
       <Avatar
         size={40}
         person={{
-          name: 'Gregorio Y. Zara',
-          imageId: '7vQD0fP'
+          name: "Gregorio Y. Zara",
+          imageId: "7vQD0fP",
         }}
       />
       <Avatar
         size={80}
         person={{
-          name: 'Gregorio Y. Zara',
-          imageId: '7vQD0fP'
+          name: "Gregorio Y. Zara",
+          imageId: "7vQD0fP",
         }}
       />
       <Avatar
         size={120}
         person={{
-          name: 'Gregorio Y. Zara',
-          imageId: '7vQD0fP'
+          name: "Gregorio Y. Zara",
+          imageId: "7vQD0fP",
         }}
       />
     </div>

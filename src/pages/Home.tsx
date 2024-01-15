@@ -1,5 +1,5 @@
 // Home.tsx
-import App from "../App";
+import App from "@/App";
 import { useState } from "react";
 import reactLogo from "@/assets/react.svg";
 import viteLogo from "@/assets/vite.svg";
@@ -23,9 +23,9 @@ export default function Home() {
   // const cardBtn:string = "card-btn border-dashed border-2 border-black-600 hover:bg-[#feb28e] hover:text-indigo-600";
   return (
     <>
-      <div>
+      <main>
         <App />
-        <div className="p-5">
+        <section className="p-5">
           <h1 className="cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
             Vite + React + TailwindCSS
           </h1>
@@ -65,8 +65,8 @@ export default function Home() {
           <h1 className="mt-5 cursor-crosshair p-5 font-bold underline hover:rounded hover:bg-sky-200 hover:text-indigo-600">
             Hello world!
           </h1>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }

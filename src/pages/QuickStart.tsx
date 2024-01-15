@@ -1,11 +1,11 @@
 // QuickStart.tsx
-import App from "../App";
+import App from "@/App";
 
 export default function QuickStart() {
   return (
-    <div className="QuickStart">
+    <main className="QuickStart">
       <App />
-      <div className="leading-loose mt-5 p-5">
+      <article className="leading-loose mt-5 p-5">
         <h1>Hello React.</h1>
         <h2 className="mt-4 text-2xl font-black text-rose-600">
           Start editing to see some magic happen!
@@ -35,7 +35,7 @@ export default function QuickStart() {
             How to share data between components
           </p>
         </div>
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }

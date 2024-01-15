@@ -4,15 +4,16 @@ import * as ReactDOM from "react-dom/client";
 // import * as ReactDOM from 'react-dom'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import App from './App.tsx'
-import Home from "./routes/Home";
-import QuickStart from "./routes/QuickStart";
-import Components from "./routes/Components";
-import MarkupWithJSX from "./routes/MarkupWithJSX";
-import DisplayingData from "./routes/DisplayingData";
-import RenderingLists from "./routes/RenderingLists";
-import TicTacToe from "./routes/TicTacToe";
-import ThinkingReact from "./routes/ThinkingReact";
-import DescribeUI from "./routes/DescribeUI";
+import Home from "./pages/Home";
+import QuickStart from "./pages/QuickStart";
+import Components from "./pages/Components";
+import MarkupWithJSX from "./pages/MarkupWithJSX";
+import DisplayingData from "./pages/DisplayingData";
+import RenderingLists from "./pages/RenderingLists";
+import TicTacToe from "./pages/TicTacToe";
+import ThinkingReact from "./pages/ThinkingReact";
+import DescribeUI from "./pages/DescribeUI";
+import AxiosDemoPhase2 from "./pages/AxiosDemoPhase2";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/DescribeUI",
     element: <DescribeUI />,
+  },
+  {
+    path: "/AxiosDemoPhase2",
+    element: <AxiosDemoPhase2 />,
   },
 ]);
 

@@ -1,6 +1,6 @@
 // Components.tsx
 import { useState, useEffect } from "react";
-import App from "../App";
+import App from "@/App";
 
 // 創建和嵌套化組件
 // 組件是 UI 的一部份(user interface), 並且有著自己的 logic 和外觀
@@ -138,14 +138,14 @@ export function Components() {
   };
 
   return (
-    <div className="Components">
+    <main className="Components">
       <App />
-      <div className="mt-5 pt-5">
+      <section className="mt-5 pt-5">
         <div className="text-center text-3xl font-black">
           "Single button - Sharing data"
         </div>
-      </div>
-      <div className="mt-4 flex flex-col items-center justify-center">
+      </section>
+      <section className="mt-4 flex flex-col items-center justify-center">
         <div className="mt-4">
           <button
             className="card-btn  border-black-600 mx-2 border-2 border-dashed bg-indigo-600 text-teal-300 hover:bg-[#feb28e] hover:text-[#4B4B4B]"
@@ -214,8 +214,8 @@ export function Components() {
             />
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 

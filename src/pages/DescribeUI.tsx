@@ -1,10 +1,10 @@
 // DescribeUI
-import App from "../App";
-import Gallery from "../components/Gallery"; // Gallery.js 或 Gallery 都是可以運作的
-import { GreenBlocks } from "../components/Gallery";
-import { BlueBlocks } from "../components/Gallery";
-import Feature from "../components/Feature";
-// import { Gallery } from "../components/Gallery"; // 如果組件是用 export default 命名的話, import 的時候不能用 {} 包起來
+import App from "@/App";
+import Gallery from "@/components/Gallery"; // Gallery.js 或 Gallery 都是可以運作的
+import { GreenBlocks } from "@/components/Gallery";
+import { BlueBlocks } from "@/components/Gallery";
+import Feature from "@/components/Feature";
+// import { Gallery } from "@/components/Gallery"; // 如果組件是用 export default 命名的話, import 的時候不能用 {} 包起來
 // 父層組件
 export default function DescribeUI() {
   const name = "Zelfy Shih";
@@ -122,6 +122,9 @@ export default function Gallery() {
 // 5. Passing JSX as children: 也可以傳遞 JSX 像是子組件
 // <div> <img /> </div> -> <Card> <Avatar /> </Card>
 // 如果要將內容嵌套在 JSX tag 內, 父組件需要接收 children 這個 prop, 而子組件需要傳遞 children 這個 prop
-
 // 6. Props 可以是動態的, 而 props 是 immutable, 不可以被修改
 // 如果要改變 props 屬性, 父組件的則必須傳一個新的 props(物件), 舊的 props 則被 JS 引擎回收掉占用的 ram
+
+// Conditional Rendering
+// 包含 if/else, ternary operator, && 操作符
+// 在 DisplayingData.tsx 中練習

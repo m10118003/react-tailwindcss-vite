@@ -1,11 +1,12 @@
-import { getImgUrl } from '@/libs/util';
+import React from "react";
+import { getImgUrl } from "../../src/utils/imageUrlUtil";
 function Profile({
   imageId,
   name,
   profession,
   awards,
   discovery,
-  imageSize = 70
+  imageSize = 70,
 }) {
   return (
     <section className="profile">
@@ -18,10 +19,11 @@ function Profile({
         height={imageSize}
       />
       <ul>
-        <li><b>Profession:</b> {profession}</li>
         <li>
-          <b>Awards: {awards.length} </b>
-          ({awards.join(', ')})
+          <b>Profession:</b> {profession}
+        </li>
+        <li>
+          <b>Awards: {awards.length} </b>({awards.join(", ")})
         </li>
         <li>
           <b>Discovered: </b>
@@ -42,21 +44,18 @@ export default function Gallery() {
         profession="physicist and chemist"
         discovery="polonium (chemical element)"
         awards={[
-          'Nobel Prize in Physics',
-          'Nobel Prize in Chemistry',
-          'Davy Medal',
-          'Matteucci Medal'
+          "Nobel Prize in Physics",
+          "Nobel Prize in Chemistry",
+          "Davy Medal",
+          "Matteucci Medal",
         ]}
       />
       <Profile
-        imageId='YfeOqp2'
-        name='Katsuko Saruhashi'
-        profession='geochemist'
+        imageId="YfeOqp2"
+        name="Katsuko Saruhashi"
+        profession="geochemist"
         discovery="a method for measuring carbon dioxide in seawater"
-        awards={[
-          'Miyake Prize for geochemistry',
-          'Tanaka Prize'
-        ]}
+        awards={["Miyake Prize for geochemistry", "Tanaka Prize"]}
       />
     </div>
   );
