@@ -1,5 +1,5 @@
 // RenderingLists.tsx
-import App from "../App";
+import App from "@/App";
 
 export default function RenderingLists() {
   // 依賴 JS 特性如 for loop, 和 array map() 去做組件的條列式渲染
@@ -35,12 +35,14 @@ export default function RenderingLists() {
   return (
     <>
       <App />
-      <>
-        <div className="mt-5 pt-5 text-center text-3xl font-black">"Shopping list"</div>
-      </>
-      <div className="mt-4 flex justify-center py-0">
-        <ul>{listItems}</ul>
-      </div>
+      <main className="mt-5 pt-5">
+        <>
+          <div className="text-center text-3xl font-black">"Shopping list"</div>
+        </>
+        <section className="mt-4 flex justify-center py-0">
+          <ul>{listItems}</ul>
+        </section>
+      </main>
     </>
   );
 }

@@ -9,3 +9,5 @@ export function getImgUrl(imageId: string, size = "s") {
 export function getImgUrlOptionalSize(imageId: string, size:string) {
   return "https://i.imgur.com/" + imageId + size + ".jpg";
 }
+
+export default { getImageUrl, getImgUrl, getImgUrlOptionalSize }
