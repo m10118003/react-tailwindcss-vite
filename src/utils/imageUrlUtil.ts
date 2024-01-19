@@ -6,8 +6,12 @@ export function getImgUrl(imageId: string, size = "s") {
   return "https://i.imgur.com/" + imageId + size + ".jpg";
 }
 
-export function getImgUrlOptionalSize(imageId: string, size:string) {
+export function getImgUrlOptionalSize(imageId: string, size: string) {
   return "https://i.imgur.com/" + imageId + size + ".jpg";
 }
 
-export default { getImageUrl, getImgUrl, getImgUrlOptionalSize }
+export function getScientistsImgUrl(person: { imageId: string }) {
+  return "https://i.imgur.com/" + person.imageId + "s.jpg";
+}
+
+export default { getImageUrl, getImgUrl, getImgUrlOptionalSize, getScientistsImgUrl }

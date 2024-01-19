@@ -117,7 +117,6 @@ export default function DisplayingData() {
               <Item name="Favorite food" isWhat={true} />
               <Item name="Favorite color" isWhat={true} />
               <Item2 name="Sunny guy" isWhat={true} isDelete={false} />
-              
             </ul>
           </div>
         </section>

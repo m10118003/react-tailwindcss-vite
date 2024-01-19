@@ -1,5 +1,5 @@
 import React from "react";
-import { getImgUrlOptionalSize } from "../../src/utils/imageUrlUtil";
+import { getImgUrlOptionalSize } from "../../../src/utils/imageUrlUtil";
 
 function Avatar({ person, size }) {
   let avatarSize = "s";
