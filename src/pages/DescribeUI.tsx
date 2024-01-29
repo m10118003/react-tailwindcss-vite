@@ -4,9 +4,10 @@ import Gallery from "@/components/Gallery"; // Gallery.js 或 Gallery 都是可�
 import { GreenBlocks } from "@/components/Gallery";
 import { BlueBlocks } from "@/components/Gallery";
 import Feature from "@/components/Feature";
+import InspiringGenerator from "@/components/InspiringGenerator";
 // import { Gallery } from "@/components/Gallery"; // 如果組件是用 export default 命名的話, import 的時候不能用 {} 包起來
 
-const Hobby = ({ hobbies }: { hobbies: number }) => {
+const Hobby = ({ hobbies }: { hobbies: string }) => {
   const hobbiesList = [
     "Ride the bike",
     "Travel with friends",
@@ -28,7 +29,7 @@ const Hobby = ({ hobbies }: { hobbies: number }) => {
   return (
     <section className="hobbies m-0 p-16 hover:-rotate-6">
       <h2 className="text-center text-3xl font-black">About me</h2>
-      <h3 className="mt-4 text-2xl font-black">Includes {hobbies} Hobbies</h3>
+      <h3 className="mt-4 text-2xl font-black">I have {hobbies} Hobbies</h3>
       <div className="flex justify-center">
         <ol className="mt-4 space-y-2 text-left text-xl">{listItems}</ol>
         {/* <ol className="mt-4 space-y-2 text-left text-xl">
@@ -48,7 +49,7 @@ export default function DescribeUI() {
   return (
     <div className="describe-ui">
       <App />
-      <div className="container flex flex-col justify-center md:flex-row">
+      <main className="container flex flex-col justify-center md:flex-row">
         <section>
           <h1 className="mt-5 p-5 [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)]">
             Amazing Profile
@@ -92,21 +93,27 @@ export default function DescribeUI() {
             shape={{ imageId: "7KhiR3k", name: "background" }}
             size={500}
           >
-            <Hobby hobbies={5} />
+            <Hobby hobbies={'many'} />
             {/* 通常也不會這樣寫, 或是讓組件依照特定順序渲染 */}
           </Feature>
         </section>
-      </div>
+      </main>
+        <section className="mt-9 flex items-center justify-center">
+          <InspiringGenerator />
+        </section>
     </div>
   );
 }
 
 // Describing the UI
-// Your First Component
+
+// 1. Your First Component
 // UI 單位可以小的像是按紐, 文字 和圖片等等, React 可以組合他們成可重用, 嵌套的組件
 // 網站到手機 apps, 視覺上的東西可被拆解成組件, 可以被獨立分解成小片段的 UI 就是 組件
 // React 組件是用 JS function, 可以用標記來添加
 
+
+// 2. Importing and Exporting Components
 // 坑(Pitfall)
 // 組件可以渲染其他的組件, 但是不要嵌套他們的定義, 這樣會造成效能問題和產生 bugs
 // 當子組件需要來自父層的資料, 用 props 傳遞而不是嵌套定義
@@ -124,6 +131,7 @@ export default function Gallery() {
 // 組件除了按鈕等可重用的組件外, 也適用較大的部分, 如 side bar, list, 最終完整頁面
 // React 不是使用空的 HTML 和用 JS 管理 page, 組件也能自動產生 HTML
 
+
 // 3. Writing Markup with JSX
 // The Rules of JSX
 // 01.Return a single root element: 以 <Fragment>(<>...</>) 或 <div></div> 包圍
@@ -132,6 +140,7 @@ export default function Gallery() {
 // 03. camelCase: 用 camelCase 命名屬性, 由於變數名稱命名限制, 不能有破折號 - , 或保留字
 // 這是由於相應的 DOM 屬性規則, 這些屬性我們會希望常常讀入變數中, 這些 class 屬性將會是 className
 // 由於歷史原因，aria-* 和 data-* 屬性的編寫方式與 HTML 中一樣，帶有破折號
+
 
 // 4. JavaScript in JSX with Curly Braces
 // JSX 和 { }
@@ -143,6 +152,7 @@ export default function Gallery() {
 // 除了傳遞 字串, 數字, 和其他 JS 表達式外, 還能在 JSX 中傳遞物件, 要包起來使用雙括號 {{name: "Hedy Lamarr", inventions: 5}}
 // 04. JS objects and { }: 更多的物件練習在 DisplayingData.tsx 中
 // 可以在 { } 進行簡單運算, 如 src={baseUrl + person.imageId + person.imageSize + '.jpg'}
+
 
 // 5. Passing Props to a Component
 // 可以傳遞任何 props 到自己的組件, 並客製化 props
@@ -166,12 +176,15 @@ export default function Gallery() {
 // 06. Props 可以是動態的, 而 props 是 immutable, 不可以被修改
 // 如果要改變 props 屬性, 父組件的則必須傳一個新的 props(物件), 舊的 props 則被 JS 引擎回收掉占用的 ram
 
+
 // 6. Conditional Rendering
 // 包含 if/else, ternary operator, && 操作符
 // 在 DisplayingData.tsx 中練習
 
+
 // 7. Rendering Lists
 // 在 RenderingLists 中練習列出所有科學家資料
+
 
 // 8. Keeping Components Pure
 // Pure 的 functions 僅只執行計算
@@ -254,3 +267,28 @@ export default function Gallery() {
 // 渲染可發生在任何時候, 組件不應依賴彼此渲染順序
 // 不要改變(mutate)組件使用來渲染的輸入, 像是 state 或 props 還有 context, 而是使用 setState 來更新螢幕
 // 需要改變內容時, 會希望在 event handler 中執行操作, 沒有任何方法時, 可以用 useEffect()
+
+
+// 9. UI as a Tree, React 是怎麼保持追蹤在 app 組件結構上的?
+// React 如何看見 component 結構
+// 甚麼是 module dependency tree 和其用途?
+
+// UI as a tree, 是瀏覽器使用樹狀結構去建模 HTML(DOM) 和 CSS(CSS OM), React 也是使用樹狀結構去管理和建構組件之間的關係
+// Render Tree 一個組件的特性, 是有能力去和其他組件組合, 嵌套組件時, 父組件也有可能是另一個組件的子組件
+// 當我們渲染 React app, 我們可以在樹中建模, 即是渲染樹
+
+// 練習做一個 InspiringGenerator
+// 樹的順序是 App -render> DescribeUI -render> InspiringGenerator
+// React 是個 UI 框架跟瀏覽器的平台無關, 這邊提到的渲染樹僅由 React 組件組成, React 可以渲染到行動裝置或桌面平台上, 但使用不同的 UI primitives
+// 頂層的組件是最近靠近 root 的組件, 並且影響所有組件的渲染效能, 並包含最複雜的的組件
+// 葉結點的組件靠近底部, 並且無子組件, 通常頻繁渲染
+
+// Module Dependency Tree
+// 模組可以是一個 JS, CSS, 圖片和其他類型資源, 每個模組可以依賴其他模組
+// React 使用模組依賴關係, 組件和邏輯分為獨立檔案時, 會有 JS 模組, 可在其中匯出組件, 函數和常數(constants)
+// 每個模組在樹中都有依賴, 並且可以匯入 import
+// https://react.dev/_next/image?url=%2Fimages%2Fdocs%2Fdiagrams%2Fmodule_dependency_tree.dark.png&w=750&q=75
+// node 是由樹的組成模組所呈現, 而非 組件
+// 非組件模組, 像是 inspireData.js, 也會出現在 樹 中,  render tree 只封裝組件
+// bundler 用在 模組依賴樹中, 去推斷甚麼模組應該被使用, 以及有效的打包, bundler 會遍歷樹來確保所需模組都能被打包/包含
+//  隨 app 成長, bundle 的大小也會逐漸成長, 過大的話會拖累 UI 的效能, 了解 模組依賴關係, 可以用來解決問題
