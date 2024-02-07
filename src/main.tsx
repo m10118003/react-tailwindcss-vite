@@ -13,6 +13,7 @@ import RenderingLists from "./pages/RenderingLists";
 import TicTacToe from "./pages/TicTacToe";
 import ThinkingReact from "./pages/ThinkingReact";
 import DescribeUI from "./pages/DescribeUI";
+import AddInteractivity from "./pages/AddInteractivity";
 import AxiosDemoPhase2 from "./pages/AxiosDemoPhase2";
 import "./index.css";
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/DescribeUI",
     element: <DescribeUI />,
+  },
+  {
+    path: "/AddInteractivity",
+    element: <AddInteractivity />,
   },
   {
     path: "/AxiosDemoPhase2",
