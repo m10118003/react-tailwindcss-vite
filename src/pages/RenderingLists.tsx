@@ -13,13 +13,12 @@ const ProductList = () => {
   // 使用 map() 去構建產出的 array 成 li 項目陣列
   const listItems = products.map((product) => (
     <li
-      className={`py-1 text-left text-2xl ${
-        product.title === "Banana"
-          ? "text-yellow-600"
-          : product.isVegetable
-            ? "text-green-600"
-            : "text-red-600"
-      }`}
+      className={`py-1 text-left text-2xl ${product.title === "Banana"
+        ? "text-yellow-600"
+        : product.isVegetable
+          ? "text-green-600"
+          : "text-red-600"
+        }`}
       // style 的優先級別比 className 來得高
       // style={{
       //   color: product.isFruit ? "magenta" : "darkgreen",
@@ -80,7 +79,7 @@ export default function RenderingLists() {
   return (
     <>
       <App />
-      <main className="mt-5 grid-cols-1 justify-center gap-2 pt-5 md:grid md:grid-cols-4">
+      <main className="mt-5 justify-center gap-4 pt-5 md:grid md:grid-cols-4">
         <section className="md:w-auto">
           <p className="text-3xl font-black">"Shopping list"</p>
           <div className="mt-4 flex justify-center py-0">
