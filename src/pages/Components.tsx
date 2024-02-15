@@ -39,13 +39,13 @@ function MyButtonCounted() {
   useEffect((): void => {
     if (countString === "counted") {
       alert("Is counted?");
-    } else if (countString === "") {
+    } else if (countString === "clicked") {
       alert("Is counted~");
     }
   }, [countString]);
 
   const clickBtnString = (): void => {
-    setCount(countString !== "counted" ? "counted" : "");
+    setCount(countString !== "counted" ? "counted" : "clicked");
   };
 
   return (
@@ -126,7 +126,7 @@ const ComponentTwo = ({
 };
 
 export function Components() {
-  const [countBoolean, setCountBoolean] = useState(Boolean); // useState(false) 也可以
+  const [countBoolean, setCountBoolean] = useState(false); // useState(Boolean) 也可以, 但這樣是傳遞建構函式, 而不是一個 Boolean, 是一個 truthy 可能會邏輯錯誤
   const clickBtnBoolean = () => {
     setCountBoolean(!countBoolean); // 反轉這顆 button
     // prompt("true");
@@ -152,12 +152,14 @@ export function Components() {
             onClick={clickBtnBoolean}
           >
             I'm a button: {String(countBoolean)}
+            {/* 轉換 null 或 undefined 更安全, 不會引發錯誤 */}
           </button>
           <button
             className="card-btn border-black-600 hover:text-black-300 mx-2 border-2 border-dashed bg-indigo-600 text-teal-300 hover:bg-[#fe8ec6] hover:text-indigo-600"
             onClick={clickBtnBoolean}
           >
             I'm a button: {countBoolean.toString()}
+            {/* 直接呼叫 toString() 需額外檢查變數不是 null 或 undefined */}
           </button>
         </div>
         <div className="mt-4">
