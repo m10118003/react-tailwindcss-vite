@@ -1,4 +1,5 @@
 import NavLink from "./components/NavLink";
+import { useLocation } from 'react-router-dom'; // 確保是從 react-router-dom 匯入
 import { useState, useEffect } from 'react';
 import Clock from "@/components/Clock";
 // import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom"; // 引入 React Router 相關元件
@@ -21,6 +22,17 @@ const links = [
 
 export default function App() {
   // const cardBtn:string = "card-btn border-dashed border-2 border-black-600 hover:bg-[#feb28e] hover:text-indigo-600";
+
+  const location = useLocation(); // 在組件頂部 Call useLocation
+
+  const navLinkStyle = () => {
+    return "link-effect m-2 cursor-crosshair rounded p-4 font-black hover:rounded hover:bg-sky-200 hover:text-[#646cff]";
+  }
+
+  const isActive = (path: string) => {
+    return location.pathname === path ? "underline underline-offset-8 decoration-dashed decoration-2 transition duration-500 ease-in-out text-[#646cff]" : "";
+  }
+
   const [time, setTime] = useState(new Date());
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -40,7 +52,7 @@ export default function App() {
         <nav className="flex flex-wrap items-center justify-start">
           {links.map((link) => (
             <NavLink key={link.id} to={link.to}>
-              {link.label}
+              <div className={`${navLinkStyle()} ${isActive(link.to)}`} >{link.label}</div>
             </NavLink>
           ))}
         </nav>
